@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  proxy:
+    image: reiz/nginx_proxy:0.0.5
+    ports:
+      - 8888:8888
+    volumes:
+      - ${PWD}/nginx.conf:/usr/local/nginx/conf/nginx.conf
+      # - ${PWD}/localhost.crt:/usr/local/nginx/localhost.crt
+      # - ${PWD}/localhost.key:/usr/local/nginx/localhost.key
+
+
+  gotify:
+    image: gotify/server:latest
+    ports:
+      - 8080:80
+    environment:
+    - GOTIFY_DEFAULTUSER_PASS=custom
+    volumes:
+      - /var/gotify/data:/app/data
